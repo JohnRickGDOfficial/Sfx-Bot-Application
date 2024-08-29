@@ -78,7 +78,7 @@ client.on(Events.InteractionCreate, async interaction => {
                     return;
                 }
 
-                const targetChannelId = '1214742800516780042'; // Target channel ID
+                const targetChannelId = '1060035543372681217'; // Target channel ID
                 const targetChannel = client.channels.cache.get(targetChannelId);
 
                 if (targetChannel) {

@@ -1,3 +1,9 @@
+const keepAlive = require('./keepAlive'); // Import the keep-alive script
+
+keepAlive(); // Start the keep-alive server
+
+
+
 // Load environment variables from .env file
 require('dotenv').config();
 

@@ -1,11 +1,13 @@
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
+const http = require('http');
 
-app.get('/', (req, res) => {
-    res.send('Bot is alive!');
-});
+// Create an HTTP server to keep the bot alive
+const keepAlive = () => {
+    http.createServer((req, res) => {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Bot is running');
+    }).listen(3000, () => {
+        console.log('Keep-alive server running on port 3000');
+    });
+};
 
-app.listen(port, () => {
-    console.log(`Keep-alive server running on port ${port}`);
-});
+module.exports = keepAlive;

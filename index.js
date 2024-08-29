@@ -1,13 +1,11 @@
-const keepAlive = require('./keepAlive'); // Import the keep-alive script
-
-keepAlive(); // Start the keep-alive server
-
-
-
 // Load environment variables from .env file
 require('dotenv').config();
 
 const { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder, Events, ButtonBuilder, ButtonStyle, ActionRowBuilder, EmbedBuilder } = require('discord.js');
+const keepAlive = require('./keepAlive'); // Import the keep-alive script
+
+// Start the keep-alive server
+keepAlive();
 
 // Retrieve variables from the environment
 const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID, ACCEPT_ROLE_ID, MODERATION_CHANNEL_ID } = process.env;
@@ -199,7 +197,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
                     // Notify the user who submitted the SFX
                     await client.users.fetch(interaction.user.id).then(user => {
-                        user.send(`Your SFX request has been denied. Reason: ${reason}`);
+                        user.send(`Your SFX request has been denied for the following reason: ${reason}`);
                     }).catch(error => {
                         console.error('Error sending DM to the user:', error);
                     });
@@ -210,13 +208,9 @@ client.on(Events.InteractionCreate, async interaction => {
         }
     } catch (error) {
         console.error('Error handling interaction:', error);
-        if (interaction.replied || interaction.deferred) {
-            await interaction.editReply({ content: 'An error occurred while processing your request. Please try again later.' });
-        } else {
-            await interaction.reply({ content: 'An error occurred while processing your request. Please try again later.' });
-        }
+        await interaction.reply({ content: 'An error occurred while processing your request. Please try again later.', ephemeral: true });
     }
 });
 
-// Log in to Discord with the bot token
+// Login to Discord with the app's token
 client.login(DISCORD_TOKEN);

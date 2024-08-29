@@ -1,6 +1,14 @@
-var http = require('http');
+const express = require('express');
+const app = express();
 
-http.createServer(function (req, res) {
-  res.write("I'm alive");
-  res.end();
-}).listen(8080);
+app.all('/', (req, res) => {
+    res.send('Bot is running!');
+});
+
+function keepAlive() {
+    app.listen(3000, () => {
+        console.log('Server is ready on port 3000');
+    });
+}
+
+module.exports = keepAlive;
